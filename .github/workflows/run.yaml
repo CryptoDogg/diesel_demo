@@ -3,7 +3,7 @@ name: test
 on: [push]
 
 jobs:
-  slack_note:
+  gcp_save:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,12 +19,6 @@ jobs:
           creds: ${{ secrets.CREDS }} # update creds with b64
           instance: ${{ secrets.INSTANCE }}
           port: 13306
-      # - name: dl proxy
-      #   run: wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
-      # - name: chmod proxy
-      #   run: chmod +x cloud_sql_proxy
-      # - name: run proxy
-      #   run: ./cloud_sql_proxy -instances=${{ secrets.INSTANCE }}=tcp:13306
       - name: Run run
         env: # Or as an environment variable
           DATABASE_URL: postgres://postgres:password@localhost:13306/diesel_demo
