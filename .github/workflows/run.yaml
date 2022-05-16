@@ -1,0 +1,25 @@
+name: test
+
+on: [push]
+
+jobs:
+  slack_note:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v1
+      - name: Build
+        run: cargo build --verbose
+      - name: Run run
+        uses: brettski/gce-cloudsql-proxy-action@v2
+        with:
+          creds: ${{ secrets.CREDS }}
+          instance: ${{ secrets.INSTANCE }}
+          port: 13306
+        env: # Or as an environment variable
+          DATABASE_URL: postgres://postgres:password@localhost:13306/diesel_demo
+        run: cargo run --verbose --bin show_posts
