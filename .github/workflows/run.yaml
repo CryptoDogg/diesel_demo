@@ -14,12 +14,12 @@ jobs:
       - uses: Swatinem/rust-cache@v1
       - name: Build
         run: cargo build --verbose
-      - name: Run run
-        uses: brettski/gce-cloudsql-proxy-action@v2
+      - uses: brettski/gce-cloudsql-proxy-action@v2
         with:
           creds: ${{ secrets.CREDS }}
           instance: ${{ secrets.INSTANCE }}
           port: 13306
+      - name: Run run
         env: # Or as an environment variable
           DATABASE_URL: postgres://postgres:password@localhost:13306/diesel_demo
         run: cargo run --verbose --bin show_posts
