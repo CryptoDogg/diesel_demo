@@ -22,4 +22,4 @@ jobs:
       - name: Run run
         env: # Or as an environment variable
           DATABASE_URL: postgres://postgres:password@localhost:13306/diesel_demo
-        run: cargo run --verbose --bin show_posts
+        run: cargo run --verbose --bin write_post_const
